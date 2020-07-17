@@ -1,0 +1,27 @@
+import flask
+from flask import request, jsonify
+
+app = flask.Flask(__name__)
+app.config["DEBUG"] = True
+
+# Create some test data
+rooms = [
+    {'id': (room.identifier),
+     'name': (room.name),
+     'users': (len(room.players)),
+     'capacity': (room.capacity)}
+]
+
+
+@app.route('/', methods=['GET'])
+def home():
+    return '''<h1>Current Rooms</h1>
+<p>Available joinable rooms.</p>'''
+
+
+# A route to return all of the available rooms.
+@app.route('/api/v1/resources/rooms/all', methods=['GET'])
+def api_all():
+    return jsonify(rooms)
+
+app.run()
